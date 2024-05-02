@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Noto_Kufi_Arabic } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/navbar";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Noto_Kufi_Arabic({ subsets: ["arabic"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +17,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`${inter.className} bg-mybg text-right`}>
+        <Navbar />
+        <div className="mx-auto p-4 lg:max-w-[1400px]">{children}</div>
+      </body>
     </html>
   );
 }

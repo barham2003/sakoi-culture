@@ -1,0 +1,1 @@
+ALTER TABLE quotes ADD `explaination` text NOT NULL;

@@ -7,7 +7,7 @@ const config = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
-	],
+  ],
   prefix: "",
   theme: {
     container: {
@@ -19,6 +19,9 @@ const config = {
     },
     extend: {
       colors: {
+        mybg: "#DEFFE3",
+        myblue: "#599193",
+
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -33,8 +36,8 @@ const config = {
           foreground: "hsl(var(--secondary-foreground))",
         },
         destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
+          DEFAULT: "#EA3546",
+          foreground: "white",
         },
         muted: {
           DEFAULT: "hsl(var(--muted))",

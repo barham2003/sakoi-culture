@@ -1,0 +1,46 @@
+{
+  "version": "5",
+  "dialect": "sqlite",
+  "id": "1660fc07-9698-4123-aa3b-bb3b30a43f9b",
+  "prevId": "15c2252d-fa60-4bc4-99e2-aa77ed6f9dda",
+  "tables": {
+    "quotes": {
+      "name": "quotes",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "quote": {
+          "name": "quote",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "source": {
+          "name": "source",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {
+      "\"quotes\".\"text\"": "\"quotes\".\"quote\""
+    }
+  }
+}

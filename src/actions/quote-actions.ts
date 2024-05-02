@@ -1,17 +1,11 @@
 "use server"
 
 import { db } from "@/db"
-import { quotes } from "@/db/schema"
-import { count, sql } from "drizzle-orm"
+import { Quote, quotes } from "@/db/schema"
+import { sql } from "drizzle-orm"
 import { revalidateTag, unstable_cache as us } from "next/cache"
-
-
+import { createInsertSchema, } from 'drizzle-zod';
 import * as z from "zod"
-
-function getRandom(min: number, max: number): number {
-    return Math.floor(Math.random() * max);
-}
-
 interface Props {
     message: string
     status: string
@@ -19,35 +13,51 @@ interface Props {
         quote?: string[],
         source?: string[]
     }
+    id?: number
 
 }
 
+
+// *  Get Random Quote
 const getUnstableQuote = us(() => db.select()
     .from(quotes)
-    .orderBy(sql`RANDOM()`) // use the SQL RANDOM() function to get a random order
+    .orderBy(sql`RANDOM()`)
     .limit(1), ["quotes"], { tags: ["quotes"], revalidate: 0.1 })
 
 
-export async function getRandomQuote() {
+export async function getRandomQuote(formState: Props): Promise<Props> {
     const quote = await getUnstableQuote()
-    return quote[0];
+    if (!quote || quote.length === 0) return { message: "هیچ نەدۆزراوە", status: "error" }
+    return { message: quote[0].quote, status: "success" };
 }
 
+// *  Insert Quote
 
-const quoteSchema = z.object({
-    quote: z.string().min(5),
-    source: z.string().min(5)
+const quoteSchema = createInsertSchema(quotes, {
+    quote: z.string().min(5, { message: 'پێویستە "وتە" بەلایەنی کەمەوە لە پێنج پیت پێكهاتبێت' })
 })
 
 export async function addQuote(formState: Props, formData: FormData): Promise<Props> {
     const result = quoteSchema.safeParse({
         quote: formData.get("quote"),
-        source: formData.get("source")
+        source: formData.get("source"),
+        explaination: formData.get("explaination")
     })
 
-    if (!result.success) return { message: "Validation Error", status: "error", errors: result.error.flatten().fieldErrors }
+    if (!result.success) return { message: "فۆڕمەکە بە تەواوی پڕبکەوە", status: "error", errors: result.error.flatten().fieldErrors }
 
     await db.insert(quotes).values(result.data)
     revalidateTag("quotes")
-    return { message: "Done", status: "success" }
+    return { message: "سەرکەوتوو بوو", status: "success" }
 }
+
+
+// * Get All quotes
+const getUnstableAllQuote = us(() => db.select()
+    .from(quotes), ["get-quotes"], { tags: ["quotes"], revalidate: 60 * 60 * 24 })
+
+export async function getAllQuotes(): Promise<Quote[]> {
+    const quotes = getUnstableAllQuote()
+    return quotes
+}
+

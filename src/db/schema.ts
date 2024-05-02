@@ -4,8 +4,9 @@ import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 export const quotes = sqliteTable("quotes", {
   id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
-  quote: text("text").notNull(),
-  source: text("text")
+  quote: text("quote").notNull(),
+  source: text("source"),
+  explaination: text("explaination").notNull()
 })
 
 
