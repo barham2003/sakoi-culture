@@ -1,12 +1,10 @@
 "use client";
-import { addPoetry, getRandomPoetry } from "@/actions/poetry-actions";
+import { getRandomPoetry } from "@/actions/poetry-actions";
 import Banner from "@/components/banner";
 import FormButton from "@/components/ui/form-button";
+import PRE from "@/components/ui/pre";
 import React from "react";
 import { useFormState } from "react-dom";
-import { Noto_Kufi_Arabic } from "next/font/google";
-
-const inter = Noto_Kufi_Arabic({ subsets: ["arabic"] });
 
 export default function PoetryComponent() {
   const [{ message, status, poetry }, formAction] = useFormState(
@@ -32,11 +30,9 @@ export default function PoetryComponent() {
             </h4>
           )}
 
-          <pre
-            className={`overflow-x-auto py-4 text-center text-myblue ${inter.className}`}
-          >
+          <PRE className="overflow-x-auto py-4 text-center text-myblue">
             {status === "success" ? `${poetry?.text}` : message}
-          </pre>
+          </PRE>
           {poetry?.poet && (
             <p className="text-center text-myblue/70 ">
               شیعری{" "}
