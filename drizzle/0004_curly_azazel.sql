@@ -1,0 +1,1 @@
+ALTER TABLE `poets` RENAME TO `poetries`;

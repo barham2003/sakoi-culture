@@ -22,6 +22,27 @@
       "when": 1714652231122,
       "tag": "0002_good_sally_floyd",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1714715670623,
+      "tag": "0003_handy_lilith",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1714715778528,
+      "tag": "0004_curly_azazel",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1714722785482,
+      "tag": "0005_unique_mojo",
+      "breakpoints": true
     }
   ]
 }

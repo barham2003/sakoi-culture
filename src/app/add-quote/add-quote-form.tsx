@@ -13,7 +13,7 @@ export default function AddQuoteForm() {
     status: "",
   });
   return (
-    <form action={formAction} className="w-full space-y-1">
+    <form action={formAction} className="w-full space-y-4">
       <p
         className={cn(
           "w-full rounded-md py-1 text-center",

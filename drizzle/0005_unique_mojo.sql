@@ -1,0 +1,1 @@
+ALTER TABLE poetries ADD `title` text NOT NULL;

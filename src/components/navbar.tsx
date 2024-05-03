@@ -5,14 +5,14 @@ export default function Navbar() {
     <nav className="bg-white">
       <ul>
         <li className=" flex justify-center gap-4 px-4 py-2">
-          <Link href="/about" className=" text-myblue">
-            دەربارە
-          </Link>
-          <Link href="/poet" className=" text-myblue">
-            شیعر
-          </Link>
           <Link href="/" className=" text-myblue">
             پەندی پێشینان
+          </Link>
+          <Link href="/poetry" className=" text-myblue">
+            شیعر
+          </Link>
+          <Link href="/about" className=" text-myblue">
+            دەربارە
           </Link>
         </li>
       </ul>

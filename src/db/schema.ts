@@ -10,7 +10,13 @@ export const quotes = sqliteTable("quotes", {
 })
 
 
-
+export const poetries = sqliteTable("poetries", {
+  id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
+  title: text("title").notNull(),
+  text: text('text').notNull(),
+  poet: text("poet").notNull(),
+})
 
 
 export type Quote = InferSelectModel<typeof quotes>;
+export type Poetry = InferInsertModel<typeof poetries>

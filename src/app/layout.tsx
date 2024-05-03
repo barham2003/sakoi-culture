@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${inter.className} bg-mybg text-right`}>
+      <body className={`${inter.className} bg-mybg text-right`} dir="rtl">
         <Navbar />
         <div className="mx-auto p-4 lg:max-w-[1100px]">{children}</div>
       </body>
