@@ -14,9 +14,14 @@ interface Props {
         source?: string[]
     }
     id?: number
-
 }
 
+
+interface getQuoteProps {
+    message: string
+    status: string
+    quote?: Quote
+}
 
 // *  Get Random Quote
 const getUnstableQuote = us(() => db.select()
@@ -25,10 +30,10 @@ const getUnstableQuote = us(() => db.select()
     .limit(1), ["quotes"], { tags: ["quotes"], revalidate: 0.1 })
 
 
-export async function getRandomQuote(formState: Props): Promise<Props> {
+export async function getRandomQuote(formState: Props): Promise<getQuoteProps> {
     const quote = await getUnstableQuote()
     if (!quote || quote.length === 0) return { message: "هیچ نەدۆزراوە", status: "error" }
-    return { message: quote[0].quote, status: "success" };
+    return { quote: quote[0], message: "سەرکەوتوو بوو", status: "success" };
 }
 
 // *  Insert Quote

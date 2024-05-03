@@ -3,9 +3,9 @@ import React from "react";
 
 export default function OtherLinks() {
   return (
-    <aside className="flex flex-col text-blue-900">
+    <aside className="flex justify-between text-xs text-blue-900">
       <Link href="/add-quote">پەند زیاد بکە</Link>
-      {/* <Link href="/search-quote">بگەڕێ بۆ پەند</Link> */}
+      <Link href="/search-quotes">بگەڕێ بۆ پەند</Link>
     </aside>
   );
 }

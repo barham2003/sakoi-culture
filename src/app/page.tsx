@@ -6,12 +6,11 @@ import QuotesList from "./quotes-list";
 
 export default function Home() {
   return (
-    <main className="py-20">
+    <main className="">
       {/* <AddQuoteForm /> */}
-      <Image src="/piramerd.png" alt="" width={200} height={400} />
-      <QuoteComponent />
       <OtherLinks />
-      <QuotesList />
+      <QuoteComponent />
+      {/* <QuotesList /> */}
     </main>
   );
 }
