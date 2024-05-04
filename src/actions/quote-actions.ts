@@ -42,6 +42,17 @@ const quoteSchema = createInsertSchema(quotes, {
     quote: z.string().min(5, { message: 'پێویستە "وتە" بەلایەنی کەمەوە لە پێنج پیت پێكهاتبێت' })
 })
 
+// * Get All quotes
+const getUnstableAllQuote = us(() => db.select()
+    .from(quotes), ["quotes"], { tags: ["quotes"], revalidate: 60 * 60 * 24 })
+
+export async function getAllQuotes(): Promise<Quote[]> {
+    const quotes = getUnstableAllQuote()
+    return quotes
+}
+
+
+
 export async function addQuote(formState: Props, formData: FormData): Promise<Props> {
     const result = quoteSchema.safeParse({
         quote: formData.get("quote"),
@@ -56,13 +67,4 @@ export async function addQuote(formState: Props, formData: FormData): Promise<Pr
     return { message: "سەرکەوتوو بوو", status: "success" }
 }
 
-
-// * Get All quotes
-const getUnstableAllQuote = us(() => db.select()
-    .from(quotes), ["get-quotes"], { tags: ["quotes"], revalidate: 60 * 60 * 24 })
-
-export async function getAllQuotes(): Promise<Quote[]> {
-    const quotes = getUnstableAllQuote()
-    return quotes
-}
 
