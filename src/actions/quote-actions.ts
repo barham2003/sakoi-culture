@@ -44,7 +44,7 @@ const quoteSchema = createInsertSchema(quotes, {
 
 // * Get All quotes
 const getUnstableAllQuote = us(() => db.select()
-    .from(quotes), ["quotes"], { tags: ["quotes"], revalidate: 60 * 60 * 24 })
+    .from(quotes), ["quotes"], { tags: ["quotes"], revalidate: 60 })
 
 export async function getAllQuotes(): Promise<Quote[]> {
     const quotes = getUnstableAllQuote()

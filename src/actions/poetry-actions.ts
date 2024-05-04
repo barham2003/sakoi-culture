@@ -45,7 +45,7 @@ const getUnstablePoetries = us(
             .select()
             .from(poetries),
     ["poetry"],
-    { tags: ["poetry"], revalidate: 60 * 60 * 24 },
+    { tags: ["poetry"], revalidate: 60 },
 );
 
 export async function getPoetries() {
