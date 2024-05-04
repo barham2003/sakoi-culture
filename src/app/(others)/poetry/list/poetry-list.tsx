@@ -26,7 +26,7 @@ export default async function PoetryList() {
         );
         return (
           <article key={poet} id={poet} className="my-10">
-            <h2 className="text-3xl text-myblue  underline underline-offset-8">
+            <h2 className="text-base text-myblue underline  underline-offset-8 lg:text-3xl">
               {poet}
             </h2>
             {filteredPoetries.map((poetry) => (

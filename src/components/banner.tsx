@@ -25,7 +25,7 @@ export default function Banner({
         <h1 className="text-4xl font-bold text-myblue lg:text-6xl">{text}</h1>
         <Image
           src={image || "/piramerd.png"}
-          className="h-[217px] w-[200px] rounded-r-md pt-4"
+          className="h-[217px] w-[200px] rounded-md pt-4"
           alt=""
           width={200}
           height={400}

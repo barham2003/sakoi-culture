@@ -16,10 +16,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className={`${inter.className} bg-mybg text-right`} dir="rtl">
-        <Navbar />
-        <div className="mx-auto p-4 lg:max-w-[1100px]">{children}</div>
+    <html lang="en" className="min-h-screen scroll-smooth">
+      <body
+        className={`${inter.className} mx-auto bg-mybg text-right `}
+        dir="rtl"
+      >
+        {children}
       </body>
     </html>
   );

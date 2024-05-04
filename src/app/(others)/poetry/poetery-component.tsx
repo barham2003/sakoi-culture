@@ -16,7 +16,7 @@ export default function PoetryComponent() {
   );
   return (
     <>
-      <Banner text="شیعر" image="/bekas.png" reverse={true} />
+      <Banner text="شیعر" image="/pashew.png" reverse={true} />
       <form
         action={formAction}
         className="flex min-h-[4em] flex-col rounded-md bg-white pb-1 text-lg transition-all lg:text-2xl"
