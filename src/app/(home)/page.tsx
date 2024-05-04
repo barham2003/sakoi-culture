@@ -40,7 +40,7 @@ export default function page() {
             asChild
             className=" w-1/2 rounded-none lg:w-[120px] lg:rounded-md"
           >
-            <Link href="/quote">شیعرەکان</Link>
+            <Link href="/poetry">شیعرەکان</Link>
           </Button>
           <p className=" w-1/2 text-center text-myblue lg:w-full">
             لێرەدە شیعر بدۆزەرەوە، بخوێنەوە، زانیاریان لەسەردا بخوێنەوە
@@ -52,7 +52,7 @@ export default function page() {
             asChild
             className=" w-1/2 rounded-none lg:w-[120px] lg:rounded-md"
           >
-            <Link href="/quote">زانیاری</Link>
+            <Link href="/about">زانیاری</Link>
           </Button>
           <p className=" w-1/2 text-center text-myblue lg:w-full">
             لێرەدا زانیاری لەسەر وێبسایتەکەدا بخوێنەوە
