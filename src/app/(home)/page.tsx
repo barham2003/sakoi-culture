@@ -4,9 +4,9 @@ import Link from "next/link";
 
 export default function page() {
   return (
-    <main className="flex flex-col gap-5">
+    <main className="flex min-h-screen flex-col gap-5 overflow-hidden lg:justify-between">
       <section className="relative flex h-full flex-col items-center justify-center lg:pt-72">
-        <h1 className="z-10 w-full bg-myblue p-4 py-10  text-center text-4xl leading-10 text-white  lg:text-6xl">
+        <h1 className="z-10 w-full bg-myblue p-4 py-7  text-center text-4xl leading-10 text-white  lg:text-6xl">
           بەخێربێت بۆ{" "}
           <span className="block font-bold lg:inline">سەکۆی کولتور</span>
         </h1>
@@ -15,14 +15,14 @@ export default function page() {
           alt="Hero Image - some kurds in sako"
           width={400}
           height={400}
-          className="left-0 top-0 -z-10 w-screen opacity-60 lg:absolute lg:rounded-b-md"
+          className="left-0 top-0 -z-10 w-screen opacity-80 lg:absolute lg:rounded-b-md"
         />
-        <h2 className="w-full bg-white px-[5px] py-6 text-center text-lg text-myblue lg:w-3/4">
+        <h2 className="w-full bg-white px-[5px] py-3 text-center text-lg text-myblue lg:w-3/4">
           شوێنێك بۆ کۆکردنەوە و بەکاربردنی هونەر و ئەدەبە کولتوریەکان کورد،
           زیندووکردنەوەیان
         </h2>
       </section>
-      <section className="space-y-10 rounded-md bg-white py-10 pl-2 lg:rounded-none">
+      <section className="h-full space-y-10 rounded-md bg-white py-10 pl-2 lg:rounded-none">
         <article className="flex w-full items-center gap-2  lg:flex-col">
           <Button
             asChild

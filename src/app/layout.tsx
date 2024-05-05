@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="min-h-screen scroll-smooth">
       <body
-        className={`${inter.className} mx-auto bg-mybg text-right `}
+        className={`${inter.className} mx-auto  bg-mybg text-right `}
         dir="rtl"
       >
         {children}

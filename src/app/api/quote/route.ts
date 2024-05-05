@@ -1,4 +1,4 @@
-import { getRandomQuote } from "@/actions";
+export const dynamic = "force-dynamic"
 import { db } from "@/db";
 import { quotes } from "@/db/schema";
 import { sql } from "drizzle-orm";
