@@ -1,19 +1,5 @@
 import { headers } from "next/headers";
-import { hostname } from "os";
-
-function myFunction() {
-  // Get the text field
-  let copyText = document.getElementById("myInput") as HTMLParagraphElement;
-
-  // Select the text field
-  copyText.innerText;
-
-  // Copy the text inside the text field
-  navigator.clipboard.writeText(copyText.innerText);
-
-  // Alert the copied text
-  alert("Copied the text: " + copyText);
-}
+import CopyQuoteApi from "./CopyQuoteApi";
 
 export default function page({}) {
   return (
@@ -41,11 +27,11 @@ export default function page({}) {
         <ul className="text-black">
           <li>
             بۆ شیعر: {"  "}
-            <span>{headers().get("host") + "/api/poetry"}</span>
+            <CopyQuoteApi url={headers().get("host") + "/api/poetry"} />
           </li>{" "}
           <li>
             بۆ پەندی پێشینان: {"  "}
-            <span>{headers().get("host") + "/api/quote"}</span>
+            <CopyQuoteApi url={headers().get("host") + "/api/quote"} />
           </li>
         </ul>
       </div>

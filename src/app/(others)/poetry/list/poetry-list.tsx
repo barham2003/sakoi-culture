@@ -6,7 +6,7 @@ export default async function PoetryList() {
   const poetries = await getPoetries();
   const poets = [...new Set(poetries.map((poet) => poet.poet))];
   return (
-    <section className=" bg-white p-2 text-center">
+    <section className=" rounded-md bg-white p-2 text-center">
       <h2 className=" my-4 text-center text-3xl font-bold text-myblue">
         بگەڕێ بۆ شیعر
       </h2>
@@ -32,6 +32,7 @@ export default async function PoetryList() {
             {filteredPoetries.map((poetry) => (
               <div key={poetry.id} className="my-4 ">
                 <h3 className=" font-bold lg:text-2xl">{poetry.title}</h3>
+
                 <PRE className="overflow-x-auto overflow-y-hidden text-[0.8em] lg:text-lg">
                   {poetry.text}
                 </PRE>

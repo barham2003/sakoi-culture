@@ -62,9 +62,9 @@ export async function addQuote(formState: Props, formData: FormData): Promise<Pr
 
     if (!result.success) return { message: "فۆڕمەکە بە تەواوی پڕبکەوە", status: "error", errors: result.error.flatten().fieldErrors }
 
-    await db.insert(quotes).values(result.data)
+    const returnedID = await db.insert(quotes).values(result.data).returning({ id: quotes.id })
     revalidateTag("quotes")
-    return { message: "سەرکەوتوو بوو", status: "success" }
+    return { message: "سەرکەوتوو بوو", status: "success", id: returnedID[0].id }
 }
 
 

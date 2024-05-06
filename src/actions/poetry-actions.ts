@@ -71,7 +71,7 @@ export async function addPoetry(formState: Props, formData: FormData): Promise<P
 
     if (!result.success) return { errors: result.error.flatten().fieldErrors, message: "فۆڕمەکە بە تەواو پڕ بکەوە", status: "error" }
 
-    await db.insert(poetries).values(result.data)
+    const poetryID = await db.insert(poetries).values(result.data).returning({ id: poetries.id })
     revalidateTag("poetry")
-    return { message: "بەسەرکەوتووی نێردرا", status: "success" }
+    return { message: "بەسەرکەوتووی نێردرا", status: "success", id: poetryID[0].id }
 }
