@@ -2,14 +2,7 @@
 
 import { getRandomQuote } from "@/actions";
 import FormButton from "@/components/ui/form-button";
-import Image from "next/image";
 import { useFormState } from "react-dom";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { Button } from "@/components/ui/button";
 import Banner from "@/components/banner";
 import {
   Accordion,

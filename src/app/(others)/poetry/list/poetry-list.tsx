@@ -2,6 +2,13 @@ import { getPoetries } from "@/actions/poetry-actions";
 import PRE from "@/components/ui/pre";
 import Link from "next/link";
 
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+
 export default async function PoetryList() {
   const poetries = await getPoetries();
   const poets = [...new Set(poetries.map((poet) => poet.poet))];
@@ -20,22 +27,29 @@ export default async function PoetryList() {
           ))}
         </li>
       </ul>
-      {poets.map((poet, index) => {
+      {poets.map((poet) => {
         const filteredPoetries = poetries.filter(
           (poetry) => poetry.poet === poet,
         );
         return (
           <article key={poet} id={poet} className="my-10">
-            <h2 className="text-base text-myblue underline  underline-offset-8 lg:text-3xl">
+            <h2 className="text-right text-base text-myblue lg:text-3xl">
               {poet}
             </h2>
             {filteredPoetries.map((poetry) => (
               <div key={poetry.id} className="my-4 ">
-                <h3 className=" font-bold lg:text-2xl">{poetry.title}</h3>
-
-                <PRE className="overflow-x-auto overflow-y-hidden text-[0.8em] lg:text-lg">
-                  {poetry.text}
-                </PRE>
+                <Accordion collapsible type="single">
+                  <AccordionItem value="item-1" className="border-0  px-2">
+                    <AccordionTrigger>
+                      <h3 className=" font-bold">{poetry.title}</h3>
+                    </AccordionTrigger>
+                    <AccordionContent>
+                      <PRE className="overflow-x-auto overflow-y-hidden text-[0.8em] lg:text-lg">
+                        {poetry.text}
+                      </PRE>
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
               </div>
             ))}
           </article>
