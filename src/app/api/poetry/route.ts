@@ -2,7 +2,7 @@ export const dynamic = "force-dynamic"
 
 import { db } from "@/db";
 import { poetries } from "@/db/schema";
-import { sql } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { unstable_cache as us } from "next/cache";
 import { NextResponse } from "next/server";
 
@@ -13,7 +13,8 @@ const getUnstableRandomPoetry = us(
             .select()
             .from(poetries)
             .orderBy(sql`RANDOM()`)
-            .limit(1),
+            .limit(1)
+            .where(eq(poetries.approved, true)),
     ["poetry"],
     { tags: ["poetry"], revalidate: 0.1 },
 );

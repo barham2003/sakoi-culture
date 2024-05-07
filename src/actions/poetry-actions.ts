@@ -2,7 +2,7 @@
 
 import { db } from "@/db";
 import { Poetry, poetries } from "@/db/schema";
-import { sql } from "drizzle-orm";
+import { eq, not, sql } from "drizzle-orm";
 import { createInsertSchema } from "drizzle-zod";
 import { revalidateTag, unstable_cache as us } from "next/cache";
 import * as z from "zod";
@@ -26,6 +26,7 @@ const getUnstableRandomPoetry = us(
             .select()
             .from(poetries)
             .orderBy(sql`RANDOM()`)
+            .where(eq(poetries.approved, true))
             .limit(1),
     ["poetry"],
     { tags: ["poetry"], revalidate: 0.1 },
@@ -39,11 +40,14 @@ export async function getRandomPoetry(formState: Props): Promise<Props> {
     return { poetry: poetry.at(0), message: "", status: "success" };
 }
 
+//! ========================================= Another Part =========================================
+
 const getUnstablePoetries = us(
     () =>
         db
             .select()
-            .from(poetries),
+            .from(poetries)
+            .where(eq(poetries.approved, true)),
     ["poetry"],
     { tags: ["poetry"], revalidate: 60 },
 );

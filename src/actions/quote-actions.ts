@@ -2,7 +2,7 @@
 
 import { db } from "@/db"
 import { Quote, quotes } from "@/db/schema"
-import { sql } from "drizzle-orm"
+import { eq, sql } from "drizzle-orm"
 import { revalidateTag, unstable_cache as us } from "next/cache"
 import { createInsertSchema, } from 'drizzle-zod';
 import * as z from "zod"
@@ -27,6 +27,7 @@ interface getQuoteProps {
 const getUnstableQuote = us(() => db.select()
     .from(quotes)
     .orderBy(sql`RANDOM()`)
+    .where(eq(quotes.approved, true))
     .limit(1), ["quotes"], { tags: ["quotes"], revalidate: 0.1 })
 
 
@@ -44,7 +45,7 @@ const quoteSchema = createInsertSchema(quotes, {
 
 // * Get All quotes
 const getUnstableAllQuote = us(() => db.select()
-    .from(quotes), ["quotes"], { tags: ["quotes"], revalidate: 60 })
+    .from(quotes).where(eq(quotes.approved, true)), ["quotes"], { tags: ["quotes"], revalidate: 60 })
 
 export async function getAllQuotes(): Promise<Quote[]> {
     const quotes = getUnstableAllQuote()
