@@ -24,9 +24,10 @@ export default function page({}) {
           درووستکردن و بنیاتنانی بەرهەمەکانی خۆیان و ڕەنگداری بکەن بە فۆلکلۆری
           کوردی و پەندی پێشینان و شیعرە کوردیەکان
         </Section>
-        <ul className="text-black">
+        <ul className="space-y-2 text-black">
           <li>
             بۆ شیعر: {"  "}
+            <br />
             <CopyQuoteApi url={headers().get("host") + "/api/poetry"} />
           </li>{" "}
           <li>
