@@ -15,5 +15,5 @@ const getUnstableQuote = us(() => db.select()
 
 export async function GET(request: Request) {
     const quote = await getUnstableQuote()
-    return NextResponse.json(quote)
+    return NextResponse.json(quote[0])
 }

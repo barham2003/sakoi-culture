@@ -22,5 +22,5 @@ const getUnstableRandomPoetry = us(
 
 export async function GET(request: Request) {
     const poetry = await getUnstableRandomPoetry()
-    return NextResponse.json(poetry)
+    return NextResponse.json(poetry[0])
 }
