@@ -6,6 +6,7 @@ import { eq, sql } from "drizzle-orm"
 import { revalidateTag, unstable_cache as us } from "next/cache"
 import { createInsertSchema, } from 'drizzle-zod';
 import * as z from "zod"
+import { catchDBError } from "@/lib/utils"
 interface Props {
     message: string
     status: string
@@ -37,11 +38,6 @@ export async function getRandomQuote(formState: Props): Promise<getQuoteProps> {
     return { quote: quote[0], message: "سەرکەوتوو بوو", status: "success" };
 }
 
-// *  Insert Quote
-
-const quoteSchema = createInsertSchema(quotes, {
-    quote: z.string().min(5, { message: 'پێویستە "وتە" بەلایەنی کەمەوە لە پێنج پیت پێكهاتبێت' })
-})
 
 // * Get All quotes
 const getUnstableAllQuote = us(() => db.select()
@@ -53,6 +49,11 @@ export async function getAllQuotes(): Promise<Quote[]> {
 }
 
 
+// *  Insert Quote
+
+const quoteSchema = createInsertSchema(quotes, {
+    quote: z.string().min(5, { message: 'پێویستە "وتە" بەلایەنی کەمەوە لە پێنج پیت پێكهاتبێت' })
+})
 
 export async function addQuote(formState: Props, formData: FormData): Promise<Props> {
     const result = quoteSchema.safeParse({
@@ -63,7 +64,9 @@ export async function addQuote(formState: Props, formData: FormData): Promise<Pr
 
     if (!result.success) return { message: "فۆڕمەکە بە تەواوی پڕبکەوە", status: "error", errors: result.error.flatten().fieldErrors }
 
-    const returnedID = await db.insert(quotes).values(result.data).returning({ id: quotes.id })
+    const returnedID = await db.insert(quotes).values(result.data).returning({ id: quotes.id }).catch(catchDBError)
+
+    if (typeof returnedID === "string") return { message: " دووبارەیە", status: "error" }
     revalidateTag("quotes")
     return { message: "سەرکەوتوو بوو", status: "success", id: returnedID[0].id }
 }
