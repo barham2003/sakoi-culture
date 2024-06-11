@@ -4,6 +4,7 @@ import { quotes } from "@/db/schema";
 import { eq, sql } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { unstable_cache as us } from "next/cache";
+import { responseOptions } from "@/lib/utils";
 
 
 // *  Get Random Quote
@@ -15,5 +16,5 @@ const getUnstableQuote = us(() => db.select()
 
 export async function GET(request: Request) {
     const quote = await getUnstableQuote()
-    return NextResponse.json(quote[0])
+    return NextResponse.json(quote[0], responseOptions)
 }
