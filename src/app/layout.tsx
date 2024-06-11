@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Noto_Kufi_Arabic } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/navbar";
 
 const inter = Noto_Kufi_Arabic({ subsets: ["arabic"] });
 
@@ -16,7 +15,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="min-h-screen scroll-smooth">
+    <html lang="ku" className="min-h-screen scroll-smooth">
       <body
         className={`${inter.className} mx-auto  bg-mybg text-right selection:bg-myblue/20 `}
         dir="rtl"

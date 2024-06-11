@@ -1,7 +1,7 @@
 import { headers } from "next/headers";
 import CopyQuoteApi from "./CopyQuoteApi";
 
-export default function page({}) {
+export default function page() {
   return (
     <main className="space-y-3">
       <h1 className="text-center text-4xl font-bold text-myblue lg:text-6xl">

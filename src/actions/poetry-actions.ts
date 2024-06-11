@@ -19,7 +19,7 @@ interface Props {
     poetry?: Poetry;
 }
 
-// *  Get Random Quote
+// *  Get Random Poetry
 const getUnstableRandomPoetry = us(
     () =>
         db
@@ -76,6 +76,5 @@ export async function addPoetry(formState: Props, formData: FormData): Promise<P
     if (!result.success) return { errors: result.error.flatten().fieldErrors, message: "فۆڕمەکە بە تەواو پڕ بکەوە", status: "error" }
 
     const poetryID = await db.insert(poetries).values(result.data).returning({ id: poetries.id })
-    revalidateTag("poetry")
     return { message: "بەسەرکەوتووی نێردرا", status: "success", id: poetryID[0].id }
 }
