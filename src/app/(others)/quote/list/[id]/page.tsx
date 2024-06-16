@@ -25,6 +25,6 @@ export default async function page({ params }: { params: { id: string } }) {
 export async function generateStaticParams() {
   const quoteList = await getAllQuotesID();
   return quoteList.map((quote) => ({
-    id: quote.id,
+    id: quote.id.toString(),
   }));
 }
