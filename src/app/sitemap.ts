@@ -2,10 +2,6 @@ import { getAllQuotesID } from "@/actions/quote-actions";
 import { MetadataRoute } from "next";
 const BASE_URL = "https://www.sakoi-culture.com";
 
-export async function generateSitemaps() {
-    return await getAllQuotesID();
-}
-
 export default async function sitemap({
     id,
 }: {
