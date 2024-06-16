@@ -19,13 +19,13 @@ export default async function PoetryList() {
       </h2>
 
       <ul>
-        <li className="my-4 flex flex-wrap justify-start gap-4 border border-myblue p-2 text-sm">
+        <LI>
           {poets.map((poet) => (
             <Link key={poet} href={`#${poet}`}>
               {poet}
             </Link>
           ))}
-        </li>
+        </LI>
       </ul>
       {poets.map((poet) => {
         const filteredPoetries = poetries.filter(
@@ -56,5 +56,17 @@ export default async function PoetryList() {
         );
       })}
     </section>
+  );
+}
+
+function LI({ children }: { children: React.ReactNode }) {
+  return (
+    <li
+      className="
+  my-4 flex flex-wrap justify-start gap-4 border border-myblue p-2 text-sm
+  "
+    >
+      {children}
+    </li>
   );
 }

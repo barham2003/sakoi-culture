@@ -49,7 +49,7 @@ const getUnstablePoetries = us(
             .from(poetries)
             .where(eq(poetries.approved, true)),
     ["poetry"],
-    { tags: ["poetry"], revalidate: 60 },
+    { tags: ["poetry"] },
 );
 
 export async function getPoetries() {

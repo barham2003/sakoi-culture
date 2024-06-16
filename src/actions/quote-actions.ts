@@ -39,14 +39,35 @@ export async function getRandomQuote(formState: Props): Promise<getQuoteProps> {
 }
 
 
+// * Get one quote
+export async function getOneQuote(id: number) {
+    const quote = (
+        await db.select().from(quotes).where(eq(quotes.id, id))
+    ).at(0);
+
+    return quote
+}
+
+
 // * Get All quotes
 const getUnstableAllQuote = us(() => db.select()
-    .from(quotes).where(eq(quotes.approved, true)), ["quotes"], { tags: ["quotes"], revalidate: 60 })
+    .from(quotes).where(eq(quotes.approved, true)), ["quotes"], { tags: ["quotes"] })
 
 export async function getAllQuotes(): Promise<Quote[]> {
     const quotes = getUnstableAllQuote()
     return quotes
 }
+
+// ? Get All Quote IDs
+const getUnstableAllQuoteID = us(() => db.select({ id: quotes.id })
+    .from(quotes), ["quotes"], { tags: ["quotes"] })
+
+
+export async function getAllQuotesID(): Promise<{ id: number }[]> {
+    const quotes = getUnstableAllQuoteID()
+    return quotes
+}
+
 
 
 // *  Insert Quote

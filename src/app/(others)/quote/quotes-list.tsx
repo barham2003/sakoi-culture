@@ -1,40 +1,6 @@
 import { getAllQuotes } from "@/actions/quote-actions";
-import { like } from "drizzle-orm";
+import { soraniKurdishLetters } from "@/lib/utils";
 import Link from "next/link";
-
-const soraniKurdishLetters = [
-  "ئ",
-  "ا",
-  "ب",
-  "پ",
-  "ت",
-  "ج",
-  "چ",
-  "ح",
-  "خ",
-  "د",
-  "ر",
-  "ز",
-  "ژ",
-  "س",
-  "ش",
-  "ع",
-  "غ",
-  "ف",
-  "ڤ",
-  "ق",
-  "ک",
-  "گ",
-  "ل",
-  "ڵ",
-  "م",
-  "ن",
-  "ه",
-  "و",
-  "ۆ",
-  "ی",
-  "ء",
-];
 
 export default async function QuotesList() {
   const quotes = await getAllQuotes();
