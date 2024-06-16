@@ -4,19 +4,19 @@ import {
   getOneQuote,
 } from "@/actions/quote-actions";
 import notFound from "@/app/not-found";
-import { db } from "@/db";
-import { quotes } from "@/db/schema";
 
 export default async function page({ params }: { params: { id: string } }) {
   if (!params.id) notFound();
   const quote = await getOneQuote(+params.id);
 
   return (
-    <main className="space-y-8">
-      <h1 className="text-center text-4xl text-myblue">{quote?.quote}</h1>
-      <div className="rounded-md bg-white px-3 pb-8 pt-4">
-        <h2 className="my-2 text-3xl font-medium">ڕوونکردنەوە</h2>
-        <p className="text-2xl">{quote?.explaination}</p>
+    <main>
+      <h1 className="my-10 text-center text-xl font-bold text-myblue lg:text-5xl">
+        {quote?.quote}
+      </h1>
+      <div className="rounded-md bg-white px-4 pb-8 pt-4">
+        <h2 className="my-2 text-xl font-medium lg:text-3xl">ڕوونکردنەوە</h2>
+        <p className="text-lg lg:text-2xl">{quote?.explaination} </p>
       </div>
     </main>
   );
