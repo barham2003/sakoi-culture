@@ -31,6 +31,8 @@ This is the API endpoint to get random poetry and the result format will be like
 ##### Contributing?
 
 to contribute and help the project, you can help us by sending quotes or peotries through those links
+<br>
 ["Add quotes"](https://sakoi-culture.vercel.app/quote/add-quote)
+<br>
 ["Add Poetry"](https://sakoi-culture.vercel.app/poetry/new)
 and we will be glad by hearing your ideas and suggestions
