@@ -1,3 +1,4 @@
+import { getPoetryIds } from "@/actions/poetry-actions";
 import { getAllQuotesID } from "@/actions/quote-actions";
 import { MetadataRoute } from "next";
 const BASE_URL = "https://www.sakoi-culture.com";
@@ -7,9 +8,16 @@ export default async function sitemap({
 }: {
     id: number;
 }): Promise<MetadataRoute.Sitemap> {
+    // * QUOTES
     const quotesId = await getAllQuotesID();
     const quoteRoutes = quotesId.map(() => ({
-        url: `${BASE_URL}/product/${id}`,
+        url: `${BASE_URL}/quote/list/${id}`,
+    }));
+
+    // * POETRIES
+    const poetryIds = await getPoetryIds();
+    const poetryRoutes = poetryIds.map(() => ({
+        url: `${BASE_URL}/poetry/list/${id}`,
     }));
 
     return [
@@ -38,5 +46,6 @@ export default async function sitemap({
             priority: 0.5,
         },
         ...quoteRoutes,
+        ...poetryRoutes
     ];
 }

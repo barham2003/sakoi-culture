@@ -13,7 +13,7 @@ interface Props {
     errors?: {
         poet?: string[];
         text?: string[];
-        title?: string[]
+        title?: string[];
     };
     id?: number;
     poetry?: Poetry;
@@ -43,38 +43,64 @@ export async function getRandomPoetry(formState: Props): Promise<Props> {
 //! ========================================= Another Part =========================================
 
 const getUnstablePoetries = us(
-    () =>
-        db
-            .select()
-            .from(poetries)
-            .where(eq(poetries.approved, true)),
+    () => db.select().from(poetries).where(eq(poetries.approved, true)),
     ["poetry"],
     { tags: ["poetry"] },
 );
 
 export async function getPoetries() {
-    const poetries = await getUnstablePoetries()
-    return poetries
+    const poetries = await getUnstablePoetries();
+    return poetries;
+}
+export async function getPoetryIds() {
+    const poetryIds = await db.select({ id: poetries.id }).from(poetries)
+    return poetryIds
+}
+
+export async function getOnePoetry(id: number) {
+    const poetry = (await db.select().from(poetries).where(eq(poetries.id, id))).at(0);
+    return poetry;
 }
 
 
 const poetrySchema = createInsertSchema(poetries, {
-    poet: z.string().min(3, { message: "ناوی شاعیر دەبێت بە لایەنی کەمەوە سێ پیت بێت" }),
-    text: z.string().min(10, { message: "شیعرەکە دەبێت لە چەند وشەیەكی زیاتر پێکهاتبێت" }),
-    title: z.string().min(3, { message: "ناوی شیعرەکە دەبێت بە لایەنی کەمەوە لە سێ پیت زیاتر بێت" })
-}
-)
+    poet: z
+        .string()
+        .min(3, { message: "ناوی شاعیر دەبێت بە لایەنی کەمەوە سێ پیت بێت" }),
+    text: z
+        .string()
+        .min(10, { message: "شیعرەکە دەبێت لە چەند وشەیەكی زیاتر پێکهاتبێت" }),
+    title: z
+        .string()
+        .min(3, {
+            message: "ناوی شیعرەکە دەبێت بە لایەنی کەمەوە لە سێ پیت زیاتر بێت",
+        }),
+});
 
-
-export async function addPoetry(formState: Props, formData: FormData): Promise<Props> {
+export async function addPoetry(
+    formState: Props,
+    formData: FormData,
+): Promise<Props> {
     const result = poetrySchema.safeParse({
         text: formData.get("text"),
         poet: formData.get("poet"),
-        title: formData.get("title")
-    })
+        title: formData.get("title"),
+    });
 
-    if (!result.success) return { errors: result.error.flatten().fieldErrors, message: "فۆڕمەکە بە تەواو پڕ بکەوە", status: "error" }
+    if (!result.success)
+        return {
+            errors: result.error.flatten().fieldErrors,
+            message: "فۆڕمەکە بە تەواو پڕ بکەوە",
+            status: "error",
+        };
 
-    const poetryID = await db.insert(poetries).values(result.data).returning({ id: poetries.id })
-    return { message: "بەسەرکەوتووی نێردرا", status: "success", id: poetryID[0].id }
+    const poetryID = await db
+        .insert(poetries)
+        .values(result.data)
+        .returning({ id: poetries.id });
+    return {
+        message: "بەسەرکەوتووی نێردرا",
+        status: "success",
+        id: poetryID[0].id,
+    };
 }
