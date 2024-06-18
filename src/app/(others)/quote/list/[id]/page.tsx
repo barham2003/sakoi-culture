@@ -5,6 +5,13 @@ import {
 } from "@/actions/quote-actions";
 import notFound from "@/app/not-found";
 
+export async function generateMetadata({ params }: { params: { id: string } }) {
+  const poetry = await getOneQuote(+params.id);
+  return {
+    title: poetry?.quote || "سەکۆی کولتور",
+  };
+}
+
 export default async function page({ params }: { params: { id: string } }) {
   if (!params.id) notFound();
   const quote = await getOneQuote(+params.id);
