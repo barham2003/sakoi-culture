@@ -10,14 +10,15 @@ export default async function sitemap({
 }): Promise<MetadataRoute.Sitemap> {
     // * QUOTES
     const quotesId = await getAllQuotesID();
-    const quoteRoutes = quotesId.map(() => ({
-        url: `${BASE_URL}/quote/list/${id}`,
+    const quoteRoutes = quotesId.map((quote) => ({
+        url: `${BASE_URL}/quote/list/${quote.id}`,
     }));
 
     // * POETRIES
     const poetryIds = await getPoetryIds();
-    const poetryRoutes = poetryIds.map(() => ({
-        url: `${BASE_URL}/poetry/list/${id}`,
+    console.log(poetryIds)
+    const poetryRoutes = poetryIds.map((poetry) => ({
+        url: `${BASE_URL}/poetry/list/${poetry.id}`,
     }));
 
     return [
