@@ -36,7 +36,7 @@ export default function PoetryComponent() {
           {poetry?.poet && (
             <p className="text-center text-myblue/70 ">
               شیعری{" "}
-              <span className=" font-extrabold underline underline-offset-8">
+              <span className=" font-extrabold">
                 {poetry.poet}
               </span>
             </p>

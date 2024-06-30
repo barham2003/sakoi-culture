@@ -28,7 +28,7 @@ export default async function QuotesList() {
                 .filter((quote) => quote.quote.at(0) === letter)
                 .map((quote) => (
                   <li key={quote.id} className="my-2">
-                    <span>&quot;{quote.quote}&quot;</span>
+                    <a href={`/quote/list/${quote.id}`}>&quot;{quote.quote}&quot;</a>
                     <span className=" text-myblue/90">
                       :{quote.explaination}
                     </span>
