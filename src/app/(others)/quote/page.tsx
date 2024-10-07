@@ -2,7 +2,7 @@ import OtherLinks from "./other-links";
 import QuoteComponent from "./quote-component";
 export default function Home() {
   return (
-    <main className="">
+    <main>
       <OtherLinks />
       <QuoteComponent />
     </main>
