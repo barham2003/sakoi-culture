@@ -8,6 +8,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import PoetryItem from "./poetry";
 
 export default async function PoetryList() {
   const poetries = await getPoetries();
@@ -37,20 +38,7 @@ export default async function PoetryList() {
               {poet}
             </h2>
             {filteredPoetries.map((poetry) => (
-              <div key={poetry.id} className="my-4 ">
-                <Accordion collapsible type="single">
-                  <AccordionItem value="item-1" className="border-0  px-2">
-                    <AccordionTrigger>
-                      <h3 className=" font-bold">{poetry.title}</h3>
-                    </AccordionTrigger>
-                    <AccordionContent>
-                      <PRE className="overflow-x-auto overflow-y-hidden text-[0.8em] lg:text-lg">
-                        {poetry.text}
-                      </PRE>
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
-              </div>
+              <PoetryItem poetry={poetry} key={poetry.id} />
             ))}
           </article>
         );

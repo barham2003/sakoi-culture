@@ -52,6 +52,22 @@ export default function AddPoetryForm() {
         )}
       </fieldset>
 
+      <fieldset className="w-full">
+        <label
+          htmlFor="voice"
+          className="block rounded border border-myblue bg-white p-2 transition-all hover:bg-gray-100"
+        >
+          دەنگ دابنێ
+        </label>
+        <Input
+          type="file"
+          id="voice"
+          name="voice"
+          accept=".mp3"
+          className="hidden"
+        />
+      </fieldset>
+
       <FormButton>پەسەند بکە</FormButton>
     </form>
   );

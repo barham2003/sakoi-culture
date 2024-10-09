@@ -1,5 +1,6 @@
 "use client";
 import { getRandomPoetry } from "@/actions/poetry-actions";
+import Audio from "@/components/audio";
 import Banner from "@/components/banner";
 import FormButton from "@/components/ui/form-button";
 import PRE from "@/components/ui/pre";
@@ -23,22 +24,20 @@ export default function PoetryComponent() {
       >
         <div className="flex flex-col gap-4 pb-2">
           <FormButton>شیعر دەربێنە</FormButton>
-
-          {poetry?.title && (
-            <h4 className="text-center font-bold text-myblue">
-              {poetry.title}
-            </h4>
+          {poetry && (
+            <>
+              {poetry?.voice && <Audio audioFile={poetry.voice} />}
+              <h4 className="text-center font-bold text-myblue">
+                {poetry.title}
+              </h4>
+            </>
           )}
-
           <PRE className="overflow-x-auto py-4 text-center text-myblue">
             {status === "success" ? `${poetry?.text}` : message}
           </PRE>
           {poetry?.poet && (
             <p className="text-center text-myblue/70 ">
-              شیعری{" "}
-              <span className=" font-extrabold">
-                {poetry.poet}
-              </span>
+              شیعری <span className="font-extrabold">{poetry.poet}</span>
             </p>
           )}
         </div>
