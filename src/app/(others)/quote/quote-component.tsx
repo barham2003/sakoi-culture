@@ -42,7 +42,7 @@ export default function QuoteComponent() {
 function SuccessComponent({ quote }: { quote: Quote }) {
   return (
     <>
-      <h4 className=" px-2 py-4 text-center text-myblue"> "{quote?.quote}" </h4>
+      <h3 className=" px-2 py-4 text-center text-myblue">&quot;{quote?.quote}&quot;</h3>
       {quote?.voice && <Audio audioFile={quote.voice} />}
       <Accordion className="" type="single" collapsible>
         <AccordionItem value="item-1" className="border-0  px-2">
