@@ -1,4 +1,4 @@
-import { InferInsertModel, InferSelectModel, relations } from "drizzle-orm";
+import { InferInsertModel, InferSelectModel } from "drizzle-orm";
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 export const quotes = sqliteTable("quotes", {
@@ -7,6 +7,7 @@ export const quotes = sqliteTable("quotes", {
   source: text("source"),
   approved: integer("approved", { mode: "boolean" }).default(false),
   explaination: text("explaination").notNull(),
+  voice: text("voice"),
 });
 
 export const poetries = sqliteTable("poetries", {

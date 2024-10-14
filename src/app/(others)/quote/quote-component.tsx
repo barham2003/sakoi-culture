@@ -10,6 +10,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Audio from "@/components/audio";
+import { Quote } from "@/db/schema";
 
 export default function QuoteComponent() {
   const [{ quote, message, status }, formAction] = useFormState(
@@ -29,24 +31,32 @@ export default function QuoteComponent() {
       >
         <div className="flex flex-col gap-1">
           <FormButton variant="destructive">پەندێك دەربێنە</FormButton>
-          <h4 className=" px-2 py-4 text-center text-myblue">
-            {status === "success" ? `"${quote?.quote}"` : message}
-          </h4>
+          {status === "success" && quote ? <SuccessComponent quote={quote} /> : <ErrorComponent message={message} />}
 
-          {status === "success" && quote?.explaination && (
-            <Accordion className="" type="single" collapsible>
-              <AccordionItem value="item-1" className="border-0  px-2">
-                <AccordionTrigger className="text-base">
-                  ڕوونکردنەوە
-                </AccordionTrigger>
-                <AccordionContent>
-                  <p>{quote?.explaination}</p>
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-          )}
         </div>
-      </form>
+      </form >
     </>
   );
+}
+
+function SuccessComponent({ quote }: { quote: Quote }) {
+  return (
+    <>
+      <h4 className=" px-2 py-4 text-center text-myblue"> "{quote?.quote}" </h4>
+      {quote?.voice && <Audio audioFile={quote.voice} />}
+      <Accordion className="" type="single" collapsible>
+        <AccordionItem value="item-1" className="border-0  px-2">
+          <AccordionTrigger className="text-base">
+            ڕوونکردنەوە
+          </AccordionTrigger>
+          <AccordionContent>
+            <p>{quote?.explaination}</p>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
+    </>
+  )
+}
+function ErrorComponent({ message }: { message: string }) {
+  return <h4 className="px-2 py-4 text-center text-myblue"> {message} </h4>
 }

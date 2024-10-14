@@ -19,7 +19,7 @@ const config = {
     },
     extend: {
       colors: {
-        mybg: "#E8FFEB",
+        mybg: "#EDF7F1",
         myblue: "#599193",
 
         border: "hsl(var(--border))",

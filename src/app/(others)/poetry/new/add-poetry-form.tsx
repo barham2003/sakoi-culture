@@ -1,6 +1,6 @@
 "use client";
 import { addPoetry } from "@/actions/poetry-actions";
-import { addQuote } from "@/actions/quote-actions";
+import FileInput from "@/components/file-input";
 import FormButton from "@/components/ui/form-button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -52,22 +52,7 @@ export default function AddPoetryForm() {
         )}
       </fieldset>
 
-      <fieldset className="w-full">
-        <label
-          htmlFor="voice"
-          className="block rounded border border-myblue bg-white p-2 transition-all hover:bg-gray-100"
-        >
-          دەنگ دابنێ
-        </label>
-        <Input
-          type="file"
-          id="voice"
-          name="voice"
-          accept=".mp3"
-          className="hidden"
-        />
-      </fieldset>
-
+      <FileInput />
       <FormButton>پەسەند بکە</FormButton>
     </form>
   );

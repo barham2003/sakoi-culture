@@ -1,11 +1,11 @@
 "use client";
 import { addQuote } from "@/actions/quote-actions";
-import { Button } from "@/components/ui/button";
 import FormButton from "@/components/ui/form-button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import React, { useEffect, useRef } from "react";
 import { useFormState } from "react-dom";
+import FileInput from "@/components/file-input";
 
 export default function AddQuoteForm() {
   const [{ message, status, errors, id }, formAction] = useFormState(addQuote, {
@@ -36,6 +36,7 @@ export default function AddQuoteForm() {
       </fieldset>
       <Input type="text" name="source" placeholder="سەرچاوە" />
       <Input type="text" name="explaination" placeholder="ڕوونکردنەوە" />
+      <FileInput />
       <FormButton>پەسەند بکە</FormButton>
     </form>
   );

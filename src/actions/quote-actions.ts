@@ -7,6 +7,7 @@ import { revalidateTag, unstable_cache as us } from "next/cache";
 import { createInsertSchema } from "drizzle-zod";
 import * as z from "zod";
 import { catchDBError } from "@/lib/utils";
+import { uploadFileAndGetUrl } from "./file-actions";
 interface Props {
   message: string;
   status: string;
@@ -86,10 +87,18 @@ export async function addQuote(
   formState: Props,
   formData: FormData,
 ): Promise<Props> {
+
+
+  const voiceFile = formData.get("voice") as File;
+  let voiceUrl;
+
+  if (voiceFile) voiceUrl = await uploadFileAndGetUrl(voiceFile);
+
   const result = quoteSchema.safeParse({
     quote: formData.get("quote"),
     source: formData.get("source"),
     explaination: formData.get("explaination"),
+    voice: voiceUrl,
   });
 
   if (!result.success)

@@ -6,6 +6,7 @@ import { eq, not, sql } from "drizzle-orm";
 import { createInsertSchema } from "drizzle-zod";
 import { revalidateTag, unstable_cache as us } from "next/cache";
 import * as z from "zod";
+import { uploadFileAndGetUrl } from "./file-actions";
 
 interface Props {
   message: string;
@@ -70,30 +71,12 @@ const poetrySchema = createInsertSchema(poetries, {
     .string()
     .min(3, { message: "ناوی شاعیر دەبێت بە لایەنی کەمەوە سێ پیت بێت" }),
   text: z
-    .string()
-    .min(10, { message: "شیعرەکە دەبێت لە چەند وشەیەكی زیاتر پێکهاتبێت" }),
+    .string().min(10, { message: "شیعرەکە دەبێت لە چەند وشەیەكی زیاتر پێکهاتبێت" }),
   title: z.string().min(3, {
     message: "ناوی شیعرەکە دەبێت بە لایەنی کەمەوە لە سێ پیت زیاتر بێت",
-  }),
+  })
 });
 
-export async function uploadFileAndGetUrl(file: File) {
-  const fileForm = new FormData();
-  fileForm.append("file", file);
-
-  const fileUploadResponse = await fetch("https://api.filedoge.com/upload", {
-    method: "POST",
-    body: fileForm,
-  });
-
-  const fileResponseJson = await fileUploadResponse.json();
-
-  const fileToken = fileResponseJson.token;
-
-  const fileUrl = `http://api.filedoge.com/download/${fileToken}`;
-
-  return fileUrl;
-}
 
 export async function addPoetry(
   formState: Props,

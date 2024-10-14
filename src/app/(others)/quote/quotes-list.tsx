@@ -1,4 +1,5 @@
 import { getAllQuotes } from "@/actions/quote-actions";
+import Audio from "@/components/audio";
 import { soraniKurdishLetters } from "@/lib/utils";
 import Link from "next/link";
 
@@ -32,6 +33,7 @@ export default async function QuotesList() {
                     <span className=" text-myblue/90">
                       :{quote.explaination}
                     </span>
+                    {quote.voice && <Audio audioFile={quote.voice} />}
                   </li>
                 ))}
             </ul>
