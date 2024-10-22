@@ -7,6 +7,7 @@ import { Loader2 } from "lucide-react";
 
 type FormProps = ButtonProps & {
   children: React.ReactNode;
+  isLoading?: boolean
   whileLoading?: string;
 };
 
@@ -17,17 +18,20 @@ export default function FormButton({
   className = "font-bold",
   whileLoading = "چاوەڕێ بکە",
   onClick,
+  isLoading
 }: FormProps) {
   const { pending } = useFormStatus();
+
+  const isPending = isLoading || pending;
   return (
     <Button
       type={type}
       variant={variant}
-      disabled={pending}
+      disabled={isPending}
       className={className}
       onClick={onClick}
     >
-      {pending ? (
+      {isPending ? (
         <div className="flex items-center gap-2">
           {whileLoading}
           <Loader2 className="mr-2 h-4 w-4 animate-spin" />

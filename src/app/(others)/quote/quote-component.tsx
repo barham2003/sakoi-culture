@@ -1,9 +1,8 @@
 "use client";
-
 import { getRandomQuote } from "@/actions";
 import FormButton from "@/components/ui/form-button";
-import { useFormState } from "react-dom";
 import Banner from "@/components/banner";
+
 import {
   Accordion,
   AccordionContent,
@@ -12,34 +11,47 @@ import {
 } from "@/components/ui/accordion";
 import Audio from "@/components/audio";
 import { Quote } from "@/db/schema";
+import { useState } from "react";
 
 export default function QuoteComponent() {
-  const [{ quote, message, status }, formAction] = useFormState(
-    getRandomQuote,
-    {
-      message: "کلیك بکە بۆی پەندێك دەربێنیت",
-      status: "",
-    },
-  );
+
+  const [quote, setQuote] = useState<Quote>()
+  const [message, setMessage] = useState<string>("پەندێك دەربێنە")
+  const [isLoading, setIsLoading] = useState(false)
+
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    setIsLoading(true)
+    e.preventDefault()
+    try {
+      const gottenQuote = await getRandomQuote()
+      setQuote(gottenQuote)
+      setMessage("")
+    } catch (e) {
+      if (e instanceof Error) setMessage(e.message)
+      else setMessage("هەڵەیەك ڕوویدا")
+    } finally {
+      setIsLoading(false)
+    }
+
+  }
 
   return (
     <>
-      <Banner text="پەندی پێشینان" />
-      <form
-        className="flex min-h-[4em] flex-col rounded-md bg-white pb-1 text-lg transition-all lg:text-2xl"
-        action={formAction}
-      >
+      <Banner text="پەندی پێشینان" image="/piramerd.png" />
+      <form onSubmit={handleSubmit} className="flex min-h-[4em] flex-col rounded-md bg-white pb-1 text-lg transition-all lg:text-2xl" >
         <div className="flex flex-col gap-1">
-          <FormButton variant="destructive">پەندێك دەربێنە</FormButton>
-          {status === "success" && quote ? <SuccessComponent quote={quote} /> : <ErrorComponent message={message} />}
-
+          <FormButton variant="destructive" isLoading={isLoading}>پەندێك دەربێنە</FormButton>
+          <SuccessComponent quote={quote} />
+          <ErrorComponent message={message} />
         </div>
       </form >
     </>
   );
 }
 
-function SuccessComponent({ quote }: { quote: Quote }) {
+function SuccessComponent({ quote }: { quote: Quote | undefined }) {
+  if (!quote) return null
   return (
     <>
       <h3 className=" px-2 py-4 text-center text-myblue">&quot;{quote?.quote}&quot;</h3>
@@ -58,5 +70,6 @@ function SuccessComponent({ quote }: { quote: Quote }) {
   )
 }
 function ErrorComponent({ message }: { message: string }) {
+  if (!message) return null
   return <h4 className="px-2 py-4 text-center text-myblue"> {message} </h4>
 }

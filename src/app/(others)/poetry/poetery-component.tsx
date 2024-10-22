@@ -6,26 +6,35 @@ import FormButton from "@/components/ui/form-button";
 import PRE from "@/components/ui/pre";
 import { Poetry } from "@/db/schema";
 import React from "react";
-import { useFormState } from "react-dom";
 
 export default function PoetryComponent() {
-  const [{ message, status, poetry }, formAction] = useFormState(
-    getRandomPoetry,
-    {
-      message: "کلیك بکە بۆی شیعرێك دەربێنیت",
-      status: "",
-    },
-  );
+  const [poetry, setPoetry] = React.useState<Poetry | null>(null);
+  const [message, setMessage] = React.useState<string>("شیعر دەربێنە");
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    setIsLoading(true)
+    e.preventDefault()
+    try {
+      const gottenPoetry = await getRandomPoetry()
+      setPoetry(gottenPoetry)
+      setMessage("")
+    } catch (e) {
+      if (e instanceof Error) setMessage(e.message)
+      else setMessage("هەڵەیەك ڕوویدا")
+    } finally {
+      setIsLoading(false)
+    }
+  }
   return (
     <>
       <Banner text="شیعر" image="/pashew.png" reverse={true} />
-      <form
-        action={formAction}
-        className="flex min-h-[4em] flex-col rounded-md bg-white pb-1 text-lg transition-all lg:text-2xl"
-      >
+      <form onSubmit={handleSubmit}
+        className="flex min-h-[4em] flex-col rounded-md bg-white pb-1 text-lg transition-all lg:text-2xl" >
         <div className="flex flex-col gap-4 pb-2">
-          <FormButton>شیعر دەربێنە</FormButton>
-          {status === "success" && poetry ? <SuccessComponent poetry={poetry} /> : <ErrorComponent message={message} />}
+          <FormButton isLoading={isLoading}>شیعر دەربێنە</FormButton>
+          <SuccessComponent poetry={poetry} />
+          <MessageComponent message={message} />
         </div>
       </form>
     </>
@@ -33,9 +42,11 @@ export default function PoetryComponent() {
 }
 
 
-function SuccessComponent({ poetry }: { poetry: Poetry }) {
+function SuccessComponent({ poetry }: { poetry: Poetry | null }) {
+  if (!poetry) return null
+
   return <>
-    {poetry?.voice && <Audio audioFile={poetry.voice} />}
+    <Audio audioFile={poetry.voice} />
     <h4 className="text-center font-bold text-myblue">
       {poetry.title}
     </h4>
@@ -49,7 +60,8 @@ function SuccessComponent({ poetry }: { poetry: Poetry }) {
   </>
 }
 
-function ErrorComponent({ message }: { message: string }) {
+function MessageComponent({ message }: { message: string }) {
+  if (!message) return null
   return <h4 className="text-center text-myblue">
     {message}</h4>
 }

@@ -3,12 +3,12 @@ import Image from "next/image";
 import React from "react";
 
 export default function Banner({
-  image = "/piramerd.png",
+  image,
   text,
   reverse = false,
   className,
 }: {
-  image?: string;
+  image: string;
   text: string;
   reverse?: boolean;
   className?: string;

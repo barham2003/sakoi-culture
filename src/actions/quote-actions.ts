@@ -3,11 +3,12 @@
 import { db } from "@/db";
 import { Quote, quotes } from "@/db/schema";
 import { eq, sql } from "drizzle-orm";
-import { revalidateTag, unstable_cache as us } from "next/cache";
+import { unstable_cache as us } from "next/cache";
 import { createInsertSchema } from "drizzle-zod";
 import * as z from "zod";
 import { catchDBError } from "@/lib/utils";
 import { uploadFileAndGetUrl } from "./file-actions";
+import { notFound } from "next/navigation";
 interface Props {
   message: string;
   status: string;
@@ -18,11 +19,6 @@ interface Props {
   id?: number;
 }
 
-interface getQuoteProps {
-  message: string;
-  status: string;
-  quote?: Quote;
-}
 
 // *  Get Random Quote
 const getUnstableQuote = us(
@@ -37,18 +33,20 @@ const getUnstableQuote = us(
   { tags: ["quotes"], revalidate: 0.1 },
 );
 
-export async function getRandomQuote(formState: Props): Promise<getQuoteProps> {
+export async function getRandomQuote(): Promise<Quote> {
   const quote = await getUnstableQuote();
-  if (!quote || quote.length === 0)
-    return { message: "هیچ نەدۆزراوە", status: "error" };
-  return { quote: quote[0], message: "سەرکەوتوو بوو", status: "success" };
+  if (!quote || quote.length === 0) throw new Error("هیچ نەدۆزراوە");
+  return quote[0]
 }
 
 // * Get one quote
 export async function getOneQuote(id: number) {
-  const quote = (await db.select().from(quotes).where(eq(quotes.id, id))).at(0);
+  const quote = (await db.select().from(quotes).where(eq(quotes.id, id)))
 
-  return quote;
+  if (quote.length === 0 || !quote) notFound()
+
+
+  return quote.at(0);
 }
 
 // * Get All quotes

@@ -1,17 +1,20 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 
-import { Pause, Play, Rotate3D, RotateCcw } from "lucide-react";
+import { Pause, Play, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-export default function Audio({ audioFile }: { audioFile: string }) {
+export default function Audio({ audioFile }: { audioFile: string | null | undefined }) {
+
+
   const audioRef = useRef<null | HTMLAudioElement>(null);
+
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
   useEffect(() => {
     setIsPlaying(false);
-    if (audioRef.current) audioRef.current.pause();
-  }, [audioFile]);
+    if (audioRef.current) audioRef.current.load()
+  }, [audioFile, audioRef]);
 
   function handlePlay() {
     if (isPlaying) audioRef.current?.pause();
@@ -22,6 +25,8 @@ export default function Audio({ audioFile }: { audioFile: string }) {
   function handleRestart() {
     if (audioRef.current) audioRef.current.currentTime = 0;
   }
+
+  if (!audioFile) return null;
 
   return (
     <div className="m-3">

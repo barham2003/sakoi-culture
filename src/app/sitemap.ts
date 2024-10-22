@@ -16,7 +16,6 @@ export default async function sitemap({
 
     // * POETRIES
     const poetryIds = await getPoetryIds();
-    console.log(poetryIds)
     const poetryRoutes = poetryIds.map((poetry) => ({
         url: `${BASE_URL}/poetry/list/${poetry.id}`,
     }));

@@ -1,5 +1,4 @@
 import { getOnePoetry, getPoetryIds } from "@/actions/poetry-actions";
-import notFound from "@/app/not-found";
 import PRE from "@/components/ui/pre";
 import React from "react";
 
@@ -12,7 +11,6 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
 
 export default async function page({ params }: { params: { id: string } }) {
   const poetry = await getOnePoetry(+params.id);
-  if (!poetry) notFound();
 
   return (
     <main>
