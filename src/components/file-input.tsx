@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input'
 import React, { useState } from 'react'
 
 function FileInput() {
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState<File>();
 
   const handleFileChange = (event: any) => {
     setFile(event.target.files[0]);

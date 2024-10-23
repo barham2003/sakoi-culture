@@ -3,6 +3,7 @@
 
 
 export async function uploadFileAndGetUrl(file: File) {
+  if (!file) return null
   const fileForm = new FormData();
   fileForm.append("file", file);
 
