@@ -29,8 +29,8 @@ const getUnstableQuote = us(
       .orderBy(sql`RANDOM()`)
       .where(eq(quotes.approved, true))
       .limit(1),
-  ["quotes"],
-  { tags: ["quotes"], revalidate: 0.1 },
+  ["quote"],
+  { tags: ["quote"], revalidate: 0.1 },
 );
 
 export async function getRandomQuote(): Promise<Quote> {
@@ -53,7 +53,7 @@ export async function getOneQuote(id: number) {
 const getUnstableAllQuote = us(
   () => db.select().from(quotes).where(eq(quotes.approved, true)),
   ["quotes"],
-  { tags: ["quotes"] },
+  { tags: ["quotes"], revalidate: 24000 },
 );
 
 export async function getAllQuotes(): Promise<Quote[]> {
