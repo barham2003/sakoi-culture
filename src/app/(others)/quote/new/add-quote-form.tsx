@@ -18,6 +18,7 @@ export default function AddQuoteForm() {
   useEffect(() => {
     if (status === "success") formRef.current?.reset();
   }, [id, status]);
+
   return (
     <form ref={formRef} action={formAction} className="w-full space-y-4">
       <p

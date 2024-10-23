@@ -90,7 +90,7 @@ export async function addQuote(
   const voiceFile = formData.get("voice") as File;
   let voiceUrl;
 
-  if (voiceFile) voiceUrl = await uploadFileAndGetUrl(voiceFile);
+  if (voiceFile && voiceFile.size > 0) voiceUrl = await uploadFileAndGetUrl(voiceFile);
 
   const result = quoteSchema.safeParse({
     quote: formData.get("quote"),
